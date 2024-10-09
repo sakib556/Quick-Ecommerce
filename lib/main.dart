@@ -10,7 +10,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: DashboardScreen());
+    return MaterialApp(
+        debugShowCheckedModeBanner: false, home: DashboardScreen());
   }
 }
 
