@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quick_ecommerce/test.dart';
 import 'package:quick_ecommerce/view/screens/dashboard/dashboard_screen.dart';
 
 void main() {
@@ -10,7 +11,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
         debugShowCheckedModeBanner: false, home: DashboardScreen());
   }
 }
