@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class BannerScreen extends StatelessWidget {
+class BannerScreen extends StatefulWidget {
+  @override
+  State<BannerScreen> createState() => _BannerScreenState();
+}
+
+class _BannerScreenState extends State<BannerScreen> {
   final List<String> bannerImages = [
     'https://img.freepik.com/premium-photo/ecommerce-banner-design_1281315-2821.jpg',
     'https://via.placeholder.com/400x150?text=Banner+2',
@@ -10,51 +15,68 @@ class BannerScreen extends StatelessWidget {
     'https://via.placeholder.com/400x150?text=Banner+5',
   ];
 
+  int _currentIndex = 0;
+  // To track the active carousel item
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: CustomSearchBar(),
-        //  backgroundColor: Colors.orange, // Match the theme in your image
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 10),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 10),
 
-            // Carousel Slider for Banner Section
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 180, // Height of the carousel
-                autoPlay: false, // Enable automatic scrolling
-                enlargeCenterPage: false,
-                aspectRatio: 16 / 9,
-                viewportFraction: 0.8,
-              ),
-              items: bannerImages.map((imageUrl) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          imageUrl,
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                        ),
-                      ),
-                    );
-                  },
+        // Carousel Slider for Banner Section
+        CarouselSlider(
+          options: CarouselOptions(
+            height: 180, // Height of the carousel
+            autoPlay: false, // Enable automatic scrolling
+            enlargeCenterPage: false,
+            aspectRatio: 16 / 9,
+            viewportFraction: 0.8,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _currentIndex = index; // Update current index on page change
+              });
+            },
+          ),
+          items: bannerImages.map((imageUrl) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    ),
+                  ),
                 );
-              }).toList(),
-            ),
-
-            // Add any additional widgets below the carousel if needed
-          ],
+              },
+            );
+          }).toList(),
         ),
-      ),
+
+        // Dots Indicator
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: bannerImages.asMap().entries.map((entry) {
+            return Container(
+              width: 12.0,
+              height: 12.0,
+              margin:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 4.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _currentIndex == entry.key
+                    ? Colors.blue // Active dot color
+                    : Colors.grey, // Inactive dot color
+              ),
+            );
+          }).toList(),
+        ),
+        // Add any additional widgets below the carousel if needed
+      ],
     );
   }
 }
