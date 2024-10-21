@@ -1,160 +1,187 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
-class BannerScreen extends StatefulWidget {
-  @override
-  State<BannerScreen> createState() => _BannerScreenState();
-}
-
-class _BannerScreenState extends State<BannerScreen> {
-  final List<String> bannerImages = [
-    'https://img.freepik.com/premium-photo/ecommerce-banner-design_1281315-2821.jpg',
-    'https://via.placeholder.com/400x150?text=Banner+2',
-    'https://via.placeholder.com/400x150?text=Banner+3',
-    'https://via.placeholder.com/400x150?text=Banner+4',
-    'https://via.placeholder.com/400x150?text=Banner+5',
-  ];
-
-  int _currentIndex = 0;
-  // To track the active carousel item
+class ECommerceHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 10),
-
-        // Carousel Slider for Banner Section
-        CarouselSlider(
-          options: CarouselOptions(
-            height: 180, // Height of the carousel
-            autoPlay: false, // Enable automatic scrolling
-            enlargeCenterPage: false,
-            aspectRatio: 16 / 9,
-            viewportFraction: 0.8,
-            onPageChanged: (index, reason) {
-              setState(() {
-                _currentIndex = index; // Update current index on page change
-              });
-            },
-          ),
-          items: bannerImages.map((imageUrl) {
-            return Builder(
-              builder: (BuildContext context) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      imageUrl,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                    ),
-                  ),
-                );
-              },
-            );
-          }).toList(),
-        ),
-
-        // Dots Indicator
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: bannerImages.asMap().entries.map((entry) {
-            return Container(
-              width: 12.0,
-              height: 12.0,
-              margin:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 4.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _currentIndex == entry.key
-                    ? Colors.blue // Active dot color
-                    : Colors.grey, // Inactive dot color
+        // Section 1: Deals and Vouchers
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "New Deals Everyday!",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-            );
-          }).toList(),
+              const SizedBox(height: 10),
+              Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.pinkAccent.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "7% OFF",
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16),
+                        ),
+                        Text("Min. spend ৳ 399"),
+                      ],
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text("Collect all"),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-        // Add any additional widgets below the carousel if needed
+
+        // Section 2: Flash Sale
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Flash Sale",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text("Shop More", style: TextStyle(color: Colors.red)),
+              ),
+            ],
+          ),
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              _buildFlashSaleItem("https://dummyimage.com/200x200/000/fff",
+                  "76% Off", "৳284", "৳1,200"),
+              _buildFlashSaleItem("https://dummyimage.com/200x200/000/ccc",
+                  "80% Off", "৳132", "৳662"),
+              _buildFlashSaleItem("https://dummyimage.com/200x200/000/ddd",
+                  "80% Off", "৳132", "৳645"),
+            ],
+          ),
+        ),
+
+        // Section 3: Categories
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Categories",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text("Shop More", style: TextStyle(color: Colors.red)),
+              ),
+            ],
+          ),
+        ),
+        GridView.count(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          crossAxisCount: 3,
+          childAspectRatio: 1,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          children: [
+            _buildCategoryItem(
+                "https://dummyimage.com/200x200/000/fff", "Tech"),
+            _buildCategoryItem(
+                "https://dummyimage.com/200x200/000/ccc", "Beauty"),
+            _buildCategoryItem(
+                "https://dummyimage.com/200x200/000/ddd", "Fashion"),
+            _buildCategoryItem(
+                "https://dummyimage.com/200x200/000/eee", "Watches"),
+            _buildCategoryItem(
+                "https://dummyimage.com/200x200/000/fff", "Accessories"),
+            _buildCategoryItem(
+                "https://dummyimage.com/200x200/000/aaa", "Shoes"),
+          ],
+        ),
       ],
     );
   }
-}
 
-class CustomSearchBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  // Helper Widget: Flash Sale Item
+  Widget _buildFlashSaleItem(
+      String imageUrl, String discount, String newPrice, String oldPrice) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Row(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Camera Icon (Left)
-          IconButton(
-            icon: const Icon(Icons.qr_code_scanner, color: Colors.orange),
-            onPressed: () {
-              // Handle camera icon press
-            },
-          ),
-
-          // Search Input Box
-          Expanded(
-            child: Container(
-              // height: 40, // Set the height to match the design
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                    color: Colors.orange, width: 1.5), // Border styling
-              ),
-              child: Row(
-                children: [
-                  const SizedBox(width: 10),
-                  const Icon(Icons.camera_alt, color: Colors.grey),
-                  const SizedBox(width: 8),
-                  const Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: "mistry box daraz today", // Placeholder text
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-
-                  // Search Button (Right)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 4),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.orange, // Button background color
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      padding: EdgeInsets.all(6),
-                      child: Text(
-                        "Search",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w300,
-                            fontSize: 14),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(
+              imageUrl,
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
             ),
           ),
-
-          const SizedBox(width: 8),
-
-          // Notification Icon
-          IconButton(
-            icon: const Icon(Icons.notifications_outlined, color: Colors.grey),
-            onPressed: () {
-              // Handle notification icon press
-            },
+          const SizedBox(height: 5),
+          Text(
+            discount,
+            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            newPrice,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text(
+            oldPrice,
+            style: TextStyle(
+              decoration: TextDecoration.lineThrough,
+              color: Colors.grey,
+            ),
           ),
         ],
       ),
+    );
+  }
+
+  // Helper Widget: Category Item
+  Widget _buildCategoryItem(String imageUrl, String title) {
+    return Column(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.network(
+            imageUrl,
+            height: 80,
+            width: 80,
+            fit: BoxFit.cover,
+          ),
+        ),
+        const SizedBox(height: 5),
+        Text(title),
+      ],
     );
   }
 }
