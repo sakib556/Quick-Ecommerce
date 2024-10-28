@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quick_ecommerce/test.dart';
+import 'package:quick_ecommerce/view/test/test.dart';
 import 'package:quick_ecommerce/view/screens/bottom_nav_bar/bottom_nav_bar.dart';
 
 void main() {

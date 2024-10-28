@@ -44,7 +44,7 @@ class _HomeBannerSectionState extends State<HomeBannerSection> {
                 currentSelectedIndex = index;
                 setState(() {});
               },
-              autoPlay: true,
+              //  autoPlay: true,
               autoPlayInterval: Duration(seconds: 3),
               viewportFraction: 0.8,
             )),

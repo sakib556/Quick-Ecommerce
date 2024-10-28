@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quick_ecommerce/view/test/test.dart';
 import 'package:quick_ecommerce/view/screens/bottom_nav_bar/home/components/home_app_bar.dart';
 import 'package:quick_ecommerce/view/screens/bottom_nav_bar/home/components/home_banner_section.dart';
 
@@ -25,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 10,
             ),
             HomeBannerSection(),
+            TestSection(),
           ],
         ),
       ),
