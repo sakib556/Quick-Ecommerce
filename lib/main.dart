@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quick_ecommerce/view/test/test.dart';
 import 'package:quick_ecommerce/view/screens/bottom_nav_bar/bottom_nav_bar.dart';
 
 void main() {
@@ -12,7 +11,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: BottomNavBar());
+      debugShowCheckedModeBanner: false,
+      home: BottomNavBar(),
+    );
   }
 }
 
